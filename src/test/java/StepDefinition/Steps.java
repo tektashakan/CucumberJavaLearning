@@ -4,6 +4,8 @@ package StepDefinition;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
+
+import Base.BaseStep;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -17,26 +19,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 
 
-public class Steps {
+public class Steps extends BaseStep {
 
-
-
-
-    WebDriver driver;
     @Given("^Login sayfası açılır$")
     public void login_sayfas_alr() throws Throwable {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-
-        driver.navigate().to("https://www.netflix.com/tr/");
-
-
+        setUp();
+        driver.findElement(By.id("id_email_hero_fuji")).click();
     }
 
     @When("^Kullanıcı adı girilir$")
     public void kullanc_ad_girilir() throws Throwable {
-        driver.findElement(By.id("id_email_hero_fuji")).click();
+
         driver.findElement(By.id("id_email_hero_fuji")).sendKeys("test@gmail.com");
         driver.findElement(By.xpath("//body/div[@id='appMountPoint']/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/form[1]/div[1]/div[1]/button[1]")).click();
         Thread.sleep(1500);
@@ -69,7 +62,6 @@ public class Steps {
         String text4 ="Parola yanlış.";
         Assert.assertEquals(text3,text4);
 
-        driver.quit();
     }
 
 }
